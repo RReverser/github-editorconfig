@@ -1,5 +1,6 @@
 # This will be used as default EditorConfig for repos that don't have their own.
-# http://editorconfig.org
+# It's saved automatically as you type.
+# You can find docs at http://editorconfig.org
 
 [*]
 indent_size = 4
