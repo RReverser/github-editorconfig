@@ -1,7 +1,7 @@
 var resolvePath = require('path').resolve;
 var ec = require('editorconfig');
 
-window.getEditorConfig = function (path, callback) {
+global.getEditorConfig = function (path, callback) {
     kango.xhr.send({
         method: 'GET',
         async: true,
