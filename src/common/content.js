@@ -37,17 +37,19 @@ function reselect(selectQuery, newValue, insert) {
 
 var config = {};
 
-var style = document.createElement('style');
-document.head.appendChild(style);
-
 function setEditorConfig(newConfig) {
     config = newConfig;
 
+    var viewer = $('.highlight');
+
     // set 'tab-size' CSS property
-    if (config.tab_width) {
-        style.textContent = '.highlight {\n' + ['', '-moz-', '-o-', '-webkit-'].map(function (prefix) {
-            return prefix + 'tab-size: ' + config.tab_width + ';\n';
-        }).join('') + '}';
+    if (viewer && config.tab_width) {
+        ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
+            if (propName in this) {
+                this[propName] = config.tab_width;
+                return true;
+            }
+        }, viewer.style);
     }
 
     if (config.indent_style) {
@@ -95,7 +97,7 @@ function getEditorConfig(pathname, callback) {
     var path = pathname.slice(1).split('/');
 
     var repo = path.slice(0, 2);
-    var action = path[2];
+    var action = path[2]; //
     var commit = path[3]; // use branch name by default
 
     if (action !== 'blob' && action !== 'edit') {
@@ -119,8 +121,7 @@ function getEditorConfig(pathname, callback) {
 
 var lastPathName = '';
 
-// pull with interval as we can't inject into History API
-setInterval(function () {
+function update() {
     var newPathName = location.pathname;
     if (newPathName === lastPathName) {
         return;
@@ -131,4 +132,11 @@ setInterval(function () {
             setEditorConfig(config);
         }
     });
-}, 100);
+}
+
+// use MutationObserver as we can't inject into History API
+new MutationObserver(update)
+.observe($('#js-repo-pjax-container'), {childList: true});
+
+// initial "update"
+update();

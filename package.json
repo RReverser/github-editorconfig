@@ -11,13 +11,16 @@
   },
   "devDependencies": {
     "browserify": "^6.1.0",
-    "exorcist": "^0.1.6"
+    "exorcist": "^0.1.6",
+    "watchify": "^2.0.0"
   },
   "scripts": {
-    "gen-manifest": "node generate-manifest",
-    "build-cjs": "cd src/common && browserify -d background.js | exorcist background.built.js.map > background.built.js",
-    "build-ext": "python ../kango/kango.py build .",
-    "prepublish": "npm run-script gen-manifest && npm run-script build-cjs && npm run-script build-ext"
+    "manifest": "node generate-manifest",
+    "cjs": "cd src/common && browserify background.js -o background.built.js",
+    "kango": "python ../kango/kango.py build .",
+    "prepublish": "npm run-script manifest && npm run-script cjs && npm run-script kango",
+    "watch": "echo Watching... && watchify src/common/background.js -o output/chrome/background.built.js -d -v",
+    "dev": "npm run-script prepublish && npm run-script watch"
   },
   "extension_info": {
     "name": "GitHub EditorConfig",
