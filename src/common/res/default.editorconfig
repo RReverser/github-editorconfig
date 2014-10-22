@@ -1,0 +1,9 @@
+# This will be used as default EditorConfig for repos that don't have their own.
+# http://editorconfig.org
+
+[*]
+tab_width = 4
+
+[*.rb]
+indent_style = space
+indent_size = 2

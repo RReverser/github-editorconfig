@@ -41,12 +41,14 @@ function setEditorConfig(newConfig) {
     config = newConfig;
 
     // set 'tab-size' CSS property
-    ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
-        if (propName in this.style) {
-            this.style[propName] = config.tab_width;
-            return true;
-        }
-    }, $('.highlight'));
+    if (config.tab_width) {
+        ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
+            if (propName in this) {
+                this[propName] = config.tab_width;
+                return true;
+            }
+        }, $('.highlight').style);
+    }
 
     if (config.indent_style) {
         reselect('.js-code-indent-mode', config.indent_style + 's');

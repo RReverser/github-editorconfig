@@ -10,21 +10,31 @@
     "minimatch": "^1.0.0"
   },
   "devDependencies": {
-    "browserify": "^6.1.0"
+    "browserify": "^6.1.0",
+    "exorcist": "^0.1.6"
   },
   "scripts": {
     "gen-manifest": "node generate-manifest",
-    "build-cjs": "browserify src/_dev/background.js -o src/common/background.js && cp src/_dev/content.js src/common",
+    "build-cjs": "cd src/common && browserify -d background.js | exorcist background.built.js.map > background.built.js",
     "build-ext": "python ../kango/kango.py build .",
     "prepublish": "npm run-script gen-manifest && npm run-script build-cjs && npm run-script build-ext"
   },
   "extension_info": {
     "name": "GitHub EditorConfig",
-    "background_scripts": ["background.js"],
-    "content_scripts": ["content.js"],
+    "background_scripts": [
+      "background.built.js"
+    ],
+    "content_scripts": [
+      "content.js"
+    ],
+    "options_page": "options.html",
     "permissions": {
-      "content_scripts": ["https://github.com/*"],
-      "xhr": ["https://raw.githubusercontent.com/*"]
+      "content_scripts": [
+        "https://github.com/*"
+      ],
+      "xhr": [
+        "https://raw.githubusercontent.com/*"
+      ]
     }
   },
   "repository": {

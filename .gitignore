@@ -1,5 +1,6 @@
 /certificates
 /*.log
-/src/common/*.js
+*.built.*
+/src/common/extension_info.json
 /node_modules
 /output
