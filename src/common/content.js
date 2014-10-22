@@ -37,19 +37,17 @@ function reselect(selectQuery, newValue, insert) {
 
 var config = {};
 
+var style = document.createElement('style');
+document.head.appendChild(style);
+
 function setEditorConfig(newConfig) {
     config = newConfig;
 
-    var viewer = $('.highlight');
-
     // set 'tab-size' CSS property
-    if (viewer && config.tab_width) {
-        ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
-            if (propName in this) {
-                this[propName] = config.tab_width;
-                return true;
-            }
-        }, viewer.style);
+    if (config.tab_width) {
+        style.textContent = '.highlight {\n' + ['', '-moz-', '-o-', '-webkit-'].map(function (prefix) {
+            return prefix + 'tab-size: ' + config.tab_width + ';\n';
+        }).join('') + '}';
     }
 
     if (config.indent_style) {
@@ -97,7 +95,7 @@ function getEditorConfig(pathname, callback) {
     var path = pathname.slice(1).split('/');
 
     var repo = path.slice(0, 2);
-    var action = path[2]; //
+    var action = path[2];
     var commit = path[3]; // use branch name by default
 
     if (action !== 'blob' && action !== 'edit') {
