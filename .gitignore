@@ -1,6 +1,5 @@
 /certificates
 /*.log
-/src/*
-!/src/_dev
+/src/common/*.js
 /node_modules
 /output

@@ -1,0 +1,13 @@
+{
+    "name": "github-editorconfig",
+    "version": "1.0.0",
+    "description": "Browser extension for showing code with repo's editorconfig.",
+    "background_scripts": [
+        "background.js"
+    ],
+    "content_scripts": [
+        "content.js"
+    ],
+    "creator": "Ingvar Stepanyan <me@rreverser.com> (http://rreverser.com)",
+    "homepage_url": "https://github.com/RReverser/github-editorconfig"
+}
