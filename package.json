@@ -1,0 +1,35 @@
+{
+  "name": "github-editorconfig",
+  "version": "1.0.0",
+  "description": "Browser extension for showing code with repo's editorconfig.",
+  "dependencies": {
+    "brace": "^0.4.0",
+    "editorconfig": "^0.11.4",
+    "iniparser": "^1.0.5",
+    "jquery": "^2.1.1",
+    "minimatch": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^6.1.0"
+  },
+  "scripts": {
+    "gen-manifest": "node generate-manifest",
+    "build-cjs": "browserify src/_dev/background.js -o src/common/background.js && cp src/_dev/content.js src/common",
+    "build-ext": "python ../kango/kango.py build .",
+    "prepublish": "npm run-script gen-manifest && npm run-script build-cjs && npm run-script build-ext"
+  },
+  "kango": {
+    "background_scripts": ["background.js"],
+    "content_scripts": ["content.js"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RReverser/github-editorconfig"
+  },
+  "author": "Ingvar Stepanyan <me@rreverser.com> (http://rreverser.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RReverser/github-editorconfig/issues"
+  },
+  "homepage": "https://github.com/RReverser/github-editorconfig"
+}

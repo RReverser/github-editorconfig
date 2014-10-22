@@ -1,0 +1,6 @@
+/certificates
+/*.log
+/src/*
+!/src/_dev
+/node_modules
+/output
