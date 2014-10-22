@@ -36,5 +36,6 @@
   "bugs": {
     "url": "https://github.com/RReverser/github-editorconfig/issues"
   },
-  "homepage": "https://github.com/RReverser/github-editorconfig"
+  "homepage": "https://github.com/RReverser/github-editorconfig",
+  "private": true
 }
