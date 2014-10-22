@@ -40,14 +40,16 @@ var config = {};
 function setEditorConfig(newConfig) {
     config = newConfig;
 
+    var viewer = $('.highlight');
+
     // set 'tab-size' CSS property
-    if (config.tab_width) {
+    if (viewer && config.tab_width) {
         ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
             if (propName in this) {
                 this[propName] = config.tab_width;
                 return true;
             }
-        }, $('.highlight').style);
+        }, viewer.style);
     }
 
     if (config.indent_style) {
@@ -62,7 +64,7 @@ function setEditorConfig(newConfig) {
             // find place to insert new option and keep list sorted
             var options = select.options;
             for (var beforeIndex = 0; beforeIndex < options.length; beforeIndex++) {
-                if (options[beforeIndex].value > config.indent_size) {
+                if (options[beforeIndex].value > option.value) {
                     break;
                 }
             }
