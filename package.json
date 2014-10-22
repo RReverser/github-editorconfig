@@ -1,7 +1,7 @@
 {
   "name": "github-editorconfig",
   "version": "1.0.0",
-  "description": "Browser extension for showing code with repo's editorconfig.",
+  "description": "EditorConfig support for GitHub",
   "dependencies": {
     "brace": "^0.4.0",
     "editorconfig": "^0.11.4",
@@ -18,9 +18,14 @@
     "build-ext": "python ../kango/kango.py build .",
     "prepublish": "npm run-script gen-manifest && npm run-script build-cjs && npm run-script build-ext"
   },
-  "kango": {
+  "extension_info": {
+    "name": "GitHub EditorConfig",
     "background_scripts": ["background.js"],
-    "content_scripts": ["content.js"]
+    "content_scripts": ["content.js"],
+    "permissions": {
+      "content_scripts": ["https://github.com/*"],
+      "xhr": ["https://raw.githubusercontent.com/*"]
+    }
   },
   "repository": {
     "type": "git",

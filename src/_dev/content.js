@@ -1,14 +1,7 @@
 ﻿// ==UserScript==
 // @name github-editorconfig
 // @include https://github.com/*
-// @include https://github.com/*
 // ==/UserScript==
-
-if (!Array.from) {
-    Array.from = function (obj) {
-        return Array.prototype.slice.call(obj);
-    };
-}
 
 function $(query, context) {
     return (context || document).querySelector(query);
@@ -16,20 +9,26 @@ function $(query, context) {
 
 function reselect(selectQuery, newValue, insert) {
     var select = $(selectQuery), option;
+    // not applicable for current page
     if (!select) {
         return;
     }
+    // remove ' (auto)' in old option
     option = select.options[select.selectedIndex];
     option.textContent = option.textContent.replace(' (auto)', '');
+    // set new value
     select.value = newValue;
     option = select.options[select.selectedIndex];
+    // if such option doesn't exist, create it
     if (!option) {
         option = document.createElement('option');
         option.value = newValue;
         insert(option, select);
         option.selected = true;
     }
+    // add ' (auto)' to editorconfig'ured option
     option.textContent += ' (auto)';
+    // manually fire 'change' event on select (as it doesn't by default)
     var e = document.createEvent('HTMLEvents');
     e.initEvent('change', false, true);
     select.dispatchEvent(e);
@@ -38,15 +37,16 @@ function reselect(selectQuery, newValue, insert) {
 
 var config = {};
 
-var style = document.createElement('style');
-document.head.appendChild(style);
-
 function setEditorConfig(newConfig) {
     config = newConfig;
 
-    style.textContent = !config.tab_width ? '' : '.highlight {\n' + ['', '-moz-', '-o-'].map(function (prefix) {
-        return prefix + 'tab-size: ' + config.tab_width + ';\n';
-    }).join('') + '}';
+    // set 'tab-size' CSS property
+    ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
+        if (propName in this.style) {
+            this.style[propName] = config.tab_width;
+            return true;
+        }
+    }, $('.highlight'));
 
     if (config.indent_style) {
         reselect('.js-code-indent-mode', config.indent_style + 's');
@@ -57,6 +57,7 @@ function setEditorConfig(newConfig) {
             var optgroup = $('optgroup', select);
             option.textContent = option.value;
 
+            // find place to insert new option and keep list sorted
             var options = select.options;
             for (var beforeIndex = 0; beforeIndex < options.length; beforeIndex++) {
                 if (options[beforeIndex].value > config.indent_size) {
@@ -68,6 +69,7 @@ function setEditorConfig(newConfig) {
     }
 }
 
+// bind once for navigating through History API
 document.addEventListener('submit', function (event) {
     if (event.target !== $('.edit-file>form')) {
         return;
@@ -80,11 +82,8 @@ document.addEventListener('submit', function (event) {
         text = text.replace(/\s+$/mg, '');
     }
 
-    if (config.insert_final_newline) {
-        var newLine = aceSession.getDocument().getNewLineCharacter();
-        if (text.slice(-newLine.length) !== newLine) {
-            text += newLine;
-        }
+    if (config.insert_final_newline && text.slice(-1) !== '\n') {
+        text += '\n';
     }
 
     editor.value = text;
@@ -98,7 +97,7 @@ function getEditorConfig(pathname, callback) {
     var commit = path[3]; // use branch name by default
 
     if (action !== 'blob' && action !== 'edit') {
-        return setEditorConfig({});
+        return;
     }
 
     // try to find exact commit SHA on page
@@ -118,6 +117,7 @@ function getEditorConfig(pathname, callback) {
 
 var lastPathName = '';
 
+// pull with interval as we can't inject into History API
 setInterval(function () {
     var newPathName = location.pathname;
     if (newPathName === lastPathName) {

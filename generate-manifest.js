@@ -7,8 +7,8 @@ var manifest = {};
 	manifest[name] = pkg[name];
 });
 
-Object.keys(pkg.kango).forEach(function (name) {
-	manifest[name] = pkg.kango[name];
+Object.keys(pkg.extension_info).forEach(function (name) {
+	manifest[name] = pkg.extension_info[name];
 });
 
 manifest.creator = pkg.author;
