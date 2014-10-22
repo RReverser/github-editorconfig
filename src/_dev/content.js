@@ -10,7 +10,9 @@ if (!Array.from) {
     };
 }
 
-var $ = document.querySelector.bind(document);
+function $(query, context) {
+    return (context || document).querySelector(query);
+}
 
 function reselect(selectQuery, newValue, insert) {
     var select = $(selectQuery), option;
@@ -39,7 +41,7 @@ var config = {};
 var style = document.createElement('style');
 document.head.appendChild(style);
 
-window.setEditorConfig = function (newConfig) {
+function setEditorConfig(newConfig) {
     config = newConfig;
 
     style.textContent = !config.tab_width ? '' : '.highlight {\n' + ['', '-moz-', '-o-'].map(function (prefix) {
@@ -52,6 +54,7 @@ window.setEditorConfig = function (newConfig) {
 
     if (config.indent_size) {
         reselect('.js-code-indent-width', config.indent_size, function (option, select) {
+            var optgroup = $('optgroup', select);
             option.textContent = option.value;
 
             var options = select.options;
@@ -60,15 +63,13 @@ window.setEditorConfig = function (newConfig) {
                     break;
                 }
             }
-            select.insertBefore(option, options[beforeIndex]);
+            optgroup.insertBefore(option, options[beforeIndex]);
         });
     }
-};
+}
 
 document.addEventListener('submit', function (event) {
-    var form = $('.edit-file>form');
-
-    if (event.target !== form) {
+    if (event.target !== $('.edit-file>form')) {
         return;
     }
 
@@ -86,18 +87,30 @@ document.addEventListener('submit', function (event) {
         }
     }
 
-    debugger;
     editor.value = text;
 });
 
 function getEditorConfig(pathname, callback) {
     var path = pathname.slice(1).split('/');
-    if (path[2] !== 'blob' && path[2] !== 'edit') {
+
+    var repo = path.slice(0, 2);
+    var action = path[2]; //
+    var commit = path[3]; // use branch name by default
+
+    if (action !== 'blob' && action !== 'edit') {
         return setEditorConfig({});
     }
-    var branch = path[3];
+
+    // try to find exact commit SHA on page
+    var commitElement;
+    if (commitElement = $('.js-permalink-shortcut')) {
+        commit = commitElement.pathname.split('/')[4];
+    } else if (commitElement = $('input[name="commit"]')) {
+        commit = commitElement.value;
+    }
+
     kango.invokeAsyncCallback('getEditorConfig', {
-        config: path.slice(0, 2).concat([branch, '.editorconfig']).join('/'),
+        config: repo.concat([commit, '.editorconfig']).join('/'),
         absolute: pathname,
         relative: path.slice(4).join('/')
     }, callback);
@@ -105,15 +118,15 @@ function getEditorConfig(pathname, callback) {
 
 var lastPathName = '';
 
-(function update() {
+setInterval(function () {
     var newPathName = location.pathname;
-    if (newPathName !== lastPathName) {
-        lastPathName = newPathName;
-        getEditorConfig(newPathName, function (config) {
-            if (config.$path.absolute === location.pathname) {
-                setEditorConfig(config);
-            }
-        });
+    if (newPathName === lastPathName) {
+        return;
     }
-    window.setTimeout(update, 500);
-})();
+    lastPathName = newPathName;
+    getEditorConfig(newPathName, function (config) {
+        if (config.$path.absolute === location.pathname) {
+            setEditorConfig(config);
+        }
+    });
+}, 100);
