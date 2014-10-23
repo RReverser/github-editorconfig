@@ -16,6 +16,7 @@ You can download extension for your browser from the corresponding store:
 
 * [Chrome](https://chrome.google.com/webstore/detail/github-editorconfig/bppnolhdpdfmmpeefopdbpmabdpoefjh)
 * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-editorconfig/)
+* Opera - *under review*
 
 Screenshots
 -----------
