@@ -3,12 +3,6 @@ github-editorconfig
 
 This is a browser extension that provides [EditorConfig](http://editorconfig.org/) support for GitHub.
 
-It looks for [`.editorconfig`](http://editorconfig.org/#example-file) file in the root of repository the current file belongs to, and applies it's settings to code viewer and editor. Branch is always taken into account.
-
-In options you can also set [default editorconfig](src/common/res/default.editorconfig) that will be used for repos without custom one.
-
-It's built with [Kango - cross-browser extension framework](http://kangoextensions.com/).
-
 Download links
 --------------
 
@@ -17,6 +11,15 @@ You can download extension for your browser from the corresponding store:
 * [Chrome](https://chrome.google.com/webstore/detail/github-editorconfig/bppnolhdpdfmmpeefopdbpmabdpoefjh)
 * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-editorconfig/)
 * Opera - under review (for now you can use [this addon](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install from Chrome store)
+
+Description
+-----------
+
+Extension looks for [`.editorconfig`](http://editorconfig.org/#example-file) file in the root of repository the current file belongs to, and applies it's settings to code viewer and editor. Branch is always taken into account.
+
+In options you can also set [default editorconfig](src/common/res/default.editorconfig) that will be used for repos without custom one.
+
+It's built with [Kango - cross-browser extension framework](http://kangoextensions.com/).
 
 Screenshots
 -----------
