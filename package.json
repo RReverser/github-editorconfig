@@ -3,11 +3,7 @@
   "version": "1.0.1",
   "description": "EditorConfig support for GitHub",
   "dependencies": {
-    "brace": "^0.4.0",
-    "editorconfig": "^0.11.4",
-    "iniparser": "^1.0.5",
-    "jquery": "^2.1.1",
-    "minimatch": "^1.0.0"
+    "editorconfig": "^0.11.4"
   },
   "devDependencies": {
     "browserify": "^6.1.0",
