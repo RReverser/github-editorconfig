@@ -1,6 +1,6 @@
 {
   "name": "github-editorconfig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "EditorConfig support for GitHub",
   "dependencies": {
     "brace": "^0.4.0",
