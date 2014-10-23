@@ -44,7 +44,7 @@ function setEditorConfig(newConfig) {
 
     // set 'tab-size' CSS property
     if (viewer && config.tab_width) {
-        ['tabSize', 'mozTabSize', 'oTabSize', 'webkitTabSize'].some(function (propName) {
+        ['tabSize', 'MozTabSize', 'OTabSize', 'WebkitTabSize'].some(function (propName) {
             if (propName in this) {
                 this[propName] = config.tab_width;
                 return true;
