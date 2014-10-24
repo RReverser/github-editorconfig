@@ -9,8 +9,8 @@ Download links
 You can download extension for your browser from the corresponding store:
 
 * [Chrome](https://chrome.google.com/webstore/detail/github-editorconfig/bppnolhdpdfmmpeefopdbpmabdpoefjh)
-* [Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-editorconfig/)
-* Opera - under review (for now you can use [this addon](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install from Chrome store)
+* [Firefox](https://github.com/RReverser/github-editorconfig/releases/download/1.0.1/githubeditorconfig_1.0.1.xpi)
+* [Opera](https://addons.opera.com/extensions/details/github-editorconfig/)
 
 Description
 -----------
