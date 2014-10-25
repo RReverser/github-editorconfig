@@ -1,4 +1,5 @@
-var resolvePath = require('path').resolve;
+var Promise = require('bluebird');
+var pathUtils = require('path');
 var ec = require('editorconfig');
 
 if (!kango.storage.getItem('editorconfig')) {
@@ -12,16 +13,24 @@ if (!kango.storage.getItem('editorconfig')) {
 }
 
 global.getEditorConfig = function (path, callback) {
-    kango.xhr.send({
-        method: 'GET',
-        async: true,
-        url: 'https://raw.githubusercontent.com/' + path.config
-    }, function (data) {
-        var config = ec.parseFromFiles(path.relative, [{
-            name: resolvePath('.editorconfig'),
-            contents: data.status === 200 ? data.response : kango.storage.getItem('editorconfig')
-        }]);
-        config.$path = path;
-        callback(config);
+    var defaultConfig = ec.parseFromFiles(path.relative, [{
+        name: pathUtils.resolve('.editorconfig'),
+        contents: kango.storage.getItem('editorconfig') || ''
+    }]);
+
+    var repoConfig = ec.parse(pathUtils.join(path.root, path.relative), {
+        root: path.root
     });
+
+    Promise.settle([defaultConfig, repoConfig])
+    .reduce(function (merged, current) {
+        if (current.isFulfilled()) {
+            current = current.value();
+            for (var name in current) {
+                merged[name] = current[name];
+            }
+        }
+        return merged;
+    }, {$path: path})
+    .done(callback);
 };

@@ -3,7 +3,7 @@
 # You can find docs at http://editorconfig.org
 
 [*]
-indent_size = 4
+tab_width = 4
 
 [*.rb]
 indent_style = space

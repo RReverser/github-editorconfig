@@ -113,7 +113,6 @@ function getEditorConfig(pathname, callback) {
     }
 
     kango.invokeAsyncCallback('getEditorConfig', {
-        config: repo.concat([commit, '.editorconfig']).join('/'),
         absolute: pathname,
         relative: path.slice(4).join('/')
     }, callback);
