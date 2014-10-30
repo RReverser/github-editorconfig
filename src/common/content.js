@@ -3,8 +3,10 @@
 // @include https://github.com/*
 // ==/UserScript==
 
+var pjaxContainer = $('#js-repo-pjax-container');
+
 function $(query, context) {
-    return (context || document).querySelector(query);
+    return (context || pjaxContainer).querySelector(query);
 }
 
 function reselect(selectQuery, newValue, insert) {
@@ -114,6 +116,7 @@ function getEditorConfig(pathname, callback) {
 
     kango.invokeAsyncCallback('getEditorConfig', {
         absolute: pathname,
+        root: repo.concat([commit]).join('/'),
         relative: path.slice(4).join('/')
     }, callback);
 }
@@ -133,9 +136,9 @@ function update() {
     });
 }
 
-// use MutationObserver as we can't inject into History API
-new MutationObserver(update)
-.observe($('#js-repo-pjax-container'), {childList: true});
-
-// initial "update"
-update();
+if (pjaxContainer) {
+    // use MutationObserver as we can't inject into History API
+    new MutationObserver(update).observe(pjaxContainer, {childList: true});
+    // initial "update"
+    update();
+}
