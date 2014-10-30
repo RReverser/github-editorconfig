@@ -83,7 +83,7 @@ document.addEventListener('submit', function (event) {
     var text = editor.value;
 
     if (config.trim_trailing_whitespace) {
-        text = text.replace(/\s+$/mg, '');
+        text = text.replace(/\s*?$/mg, '');
     }
 
     if (config.insert_final_newline && text.slice(-1) !== '\n') {
