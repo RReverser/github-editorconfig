@@ -15,9 +15,9 @@ You can download extension for your browser from the corresponding store:
 Description
 -----------
 
-Extension looks for [`.editorconfig`](http://editorconfig.org/#example-file) file in the root of repository the current file belongs to, and applies it's settings to code viewer and editor. Branch is always taken into account.
+Extension looks for [`.editorconfig`](http://editorconfig.org/#example-file) files in the repository the current file belongs to, and applies it's settings to code viewer and editor. Branch is always taken into account.
 
-In options you can also set [default editorconfig](src/common/res/default.editorconfig) that will be used for repos without custom one.
+On options page you can also set [default editorconfig](src/common/res/default.editorconfig).
 
 It's built with [Kango - cross-browser extension framework](http://kangoextensions.com/).
 
@@ -33,5 +33,5 @@ Code viewer (tabs are set to preconfigured width of 4 instead of GitHub's defaul
 Code editor (preconfigured options are chosen and marked as **(auto)**; `trim_trailing_whitespace` and `insert_final_newline` are taken into account on commit):
 ![Code editor](https://cloud.githubusercontent.com/assets/557590/4751069/01e2c918-5a9a-11e4-83fe-be49db527d28.png)
 
-Options page (just a default `.editorconfig` for repos without custom one):
+Options page (just a default `.editorconfig`):
 ![Options page (default editorconfig)](https://cloud.githubusercontent.com/assets/557590/4751071/01e66b9a-5a9a-11e4-91f3-36800fbc8466.png)
