@@ -8,9 +8,9 @@ exports.readFile = function (path) {
 		url: 'https://raw.githubusercontent.com' + resolvePath(path)
 	}, function (data) {
 		if (data.status === 200) {
-			callback(data.response);
-		} else {
 			callback(null, data.response);
+		} else {
+			callback(new Error(data.response));
 		}
 	});
 };

@@ -3,10 +3,8 @@
 // @include https://github.com/*
 // ==/UserScript==
 
-var pjaxContainer = $('#js-repo-pjax-container');
-
 function $(query, context) {
-    return (context || pjaxContainer).querySelector(query);
+    return (context || document).querySelector(query);
 }
 
 function reselect(selectQuery, newValue, insert) {
@@ -136,9 +134,12 @@ function update() {
     });
 }
 
+var pjaxContainer = $('#js-repo-pjax-container');
+
 if (pjaxContainer) {
     // use MutationObserver as we can't inject into History API
     new MutationObserver(update).observe(pjaxContainer, {childList: true});
+    
     // initial "update"
     update();
 }
