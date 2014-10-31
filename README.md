@@ -19,7 +19,9 @@ Extension looks for [`.editorconfig`](http://editorconfig.org/#example-file) fil
 
 On options page you can also set [default editorconfig](src/common/res/default.editorconfig).
 
-It's built with [Kango - cross-browser extension framework](http://kangoextensions.com/).
+You can test extension on files in [demo](demo) folder of this repo.
+
+Extension is built with [Kango - cross-browser extension framework](http://kangoextensions.com/).
 
 Screenshots
 -----------
