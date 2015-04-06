@@ -27,12 +27,15 @@ Screenshots
 -----------
 
 Sample .editorconfig:
+
 ![Sample .editorconfig](https://cloud.githubusercontent.com/assets/557590/4751070/01e62090-5a9a-11e4-96e8-85d0d1e3c79e.png)
 
 Code viewer (tabs are set to preconfigured width of 4 instead of GitHub's default 8):
+
 ![Code viewer](https://cloud.githubusercontent.com/assets/557590/4751072/01e6e6e2-5a9a-11e4-862d-53b65d109958.png)
 
 Code editor (preconfigured options are chosen and marked as **(auto)**; `trim_trailing_whitespace` and `insert_final_newline` are taken into account on commit):
+
 ![Code editor](https://cloud.githubusercontent.com/assets/557590/4751069/01e2c918-5a9a-11e4-83fe-be49db527d28.png)
 
 Options page (just a default `.editorconfig`):
