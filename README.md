@@ -36,4 +36,5 @@ Code editor (preconfigured options are chosen and marked as **(auto)**; `trim_tr
 ![Code editor](https://cloud.githubusercontent.com/assets/557590/4751069/01e2c918-5a9a-11e4-83fe-be49db527d28.png)
 
 Options page (just a default `.editorconfig`):
+
 ![Options page (default editorconfig)](https://cloud.githubusercontent.com/assets/557590/4751071/01e66b9a-5a9a-11e4-91f3-36800fbc8466.png)
