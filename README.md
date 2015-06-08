@@ -1,6 +1,8 @@
 github-editorconfig
 ===================
 
+**DEPRECATED: as of 08-Jun-2015, Github [added native support](https://github.com/editorconfig/editorconfig.github.com/pull/48) for EditorConfig.**
+
 This is a browser extension that provides [EditorConfig](http://editorconfig.org/) support for GitHub.
 
 Download links
